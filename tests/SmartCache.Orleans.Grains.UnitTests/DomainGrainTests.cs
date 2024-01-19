@@ -1,15 +1,19 @@
 ﻿using NSubstitute;
 using Orleans.Runtime;
+using Orleans.Timers;
 
 namespace SmartCache.Orleans.Grains.UnitTests;
 public class DomainGrainTests
 {
-    private readonly IPersistentState<DomainGrain.State> _persistentStateMock = Substitute.For<IPersistentState<DomainGrain.State>>();
+
+    private readonly IPersistentState<DomainGrain.State> _mockPersistentState = Substitute.For<IPersistentState<DomainGrain.State>>();
+    private readonly ITimerRegistry _mockTimerRegistry = Substitute.For<ITimerRegistry>();
+    private readonly IGrainContext _mockGrainContext = Substitute.For<IGrainContext>();
     private readonly DomainGrain _subject;
     public DomainGrainTests()
     {
 
-        _subject = new DomainGrain(_persistentStateMock);
+        _subject = new DomainGrain(_mockPersistentState, _mockTimerRegistry, _mockGrainContext);
     }
 
     [Fact]
@@ -22,7 +26,7 @@ public class DomainGrainTests
         var mockState = new DomainGrain.State();
         mockState.Emails = breachedEmails;
 
-        _persistentStateMock.State
+        _mockPersistentState.State
             .Returns(mockState);
 
         // Act
@@ -42,7 +46,7 @@ public class DomainGrainTests
         var mockState = new DomainGrain.State();
         mockState.Emails = breachedEmails;
 
-        _persistentStateMock.State
+        _mockPersistentState.State
             .Returns(mockState);
 
         // Act
@@ -62,14 +66,14 @@ public class DomainGrainTests
         var mockState = new DomainGrain.State();
         mockState.Emails = breachedEmails;
 
-        _persistentStateMock.State
+        _mockPersistentState.State
             .Returns(mockState);
 
         // Act
-        await _subject.AddBreachedEmailAsync(email);
+        var result = await _subject.AddBreachedEmailAsync(email);
 
         // Assert
-        Assert.Contains(email, _persistentStateMock.State.Emails);
-        await _persistentStateMock.Received(1).WriteStateAsync();
+        Assert.True(result);
+        Assert.Contains(email, _mockPersistentState.State.Emails);
     }
 }
