@@ -1,8 +1,12 @@
+using SmartCache.Application;
+using SmartCache.Host.Middlewares;
 using SmartCache.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructureServices();
+
+builder.Services.AddApplicationServices();
 
 builder.Host.AddInfrastructureHostConfiguratuion();
 
@@ -21,6 +25,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 

@@ -1,22 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartCache.Domain.Interfaces;
+using SmartCache.Domain.Models;
 
 namespace SmartCache.Host.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class EmailBreachController : ControllerBase
 {
-    private readonly ICacheService _cacheService;
+    private readonly IEmailBreachService _emailBreachService;
 
-    public EmailBreachController(ICacheService cacheService)
+    public EmailBreachController(IEmailBreachService emailBreachService)
     {
-        _cacheService = cacheService;
+        _emailBreachService = emailBreachService;
     }
 
     [HttpGet("{email}")]
-    public async Task<IActionResult> IsEmailBreached(string email)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(CustomExceptionResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> IsEmailBreachedAsync(string email)
     {
-        var isEmailBreached = await _cacheService.IsEmailBreached(email);
+        var isEmailBreached = await _emailBreachService.IsEmailBreachedAsync(email);
         if (isEmailBreached)
         {
             return Ok();
@@ -26,10 +30,18 @@ public class EmailBreachController : ControllerBase
     }
 
     [HttpPut("{email}")]
-    public async Task<IActionResult> AddBreachedEmail(string email)
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    [ProducesResponseType(typeof(CustomExceptionResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> AddBreachedEmailAsync(string email)
     {
-        await _cacheService.AddBreachedEmail(email);
+        var added = await _emailBreachService.AddBreachedEmailAsync(email);
 
-        return Ok();
+        if (added)
+        {
+            return StatusCode(201);
+        }
+
+        return Conflict();
     }
 }

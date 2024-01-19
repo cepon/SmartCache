@@ -16,10 +16,16 @@ public class DomainGrain : Grain, IDomainGrain
         return Task.FromResult(_state.State.Emails.Contains(email));
     }
 
-    public async Task AddBreachedEmailAsync(string email)
+    public async Task<bool> AddBreachedEmailAsync(string email)
     {
+        if (await IsEmailBreachedAsync(email))
+        {
+            return false;
+        }
+
         _state.State.Emails.Add(email);
         await _state.WriteStateAsync();
+        return true;
     }
 
     public class State

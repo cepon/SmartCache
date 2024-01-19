@@ -10,13 +10,13 @@ public class MicrosoftOrleansService : ICacheService
     {
         _clusterClient = clusterClient;
     }
-    public async Task AddBreachedEmail(string email)
+    public async Task<bool> AddBreachedEmailAsync(string email)
     {
         var emailDomain = EmailHelper.GetEmailDomain(email);
-        await _clusterClient.GetGrain<IDomainGrain>(emailDomain).AddBreachedEmailAsync(email);
+        return await _clusterClient.GetGrain<IDomainGrain>(emailDomain).AddBreachedEmailAsync(email);
     }
 
-    public async Task<bool> IsEmailBreached(string email)
+    public async Task<bool> IsEmailBreachedAsync(string email)
     {
         var emailDomain = EmailHelper.GetEmailDomain(email);
         return await _clusterClient.GetGrain<IDomainGrain>(emailDomain).IsEmailBreachedAsync(email);
