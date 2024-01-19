@@ -1,4 +1,4 @@
-﻿namespace SmartCache.Infrastructure.MicrosoftOrleans.Grains.Interfaces;
+﻿namespace SmartCache.Orleans.Grains.Interfaces;
 public interface IDomainGrain : IGrainWithStringKey
 {
     Task<bool> IsEmailBreachedAsync(string email);

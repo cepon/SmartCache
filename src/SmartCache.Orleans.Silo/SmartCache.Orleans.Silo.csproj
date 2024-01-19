@@ -1,17 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Orleans.Client" Version="7.2.4" />
+    <PackageReference Include="Microsoft.Orleans.Server" Version="7.2.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmartCache.Application\SmartCache.Application.csproj" />
     <ProjectReference Include="..\SmartCache.Orleans.Grains\SmartCache.Orleans.Grains.csproj" />
   </ItemGroup>
 

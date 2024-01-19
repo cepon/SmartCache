@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using SmartCache.Domain.Interfaces;
 using SmartCache.Infrastructure.Services;
 
@@ -14,12 +15,12 @@ public static class ConfigureServices
 
     public static IHostBuilder AddInfrastructureHostConfiguratuion(this IHostBuilder host)
     {
-        host.UseOrleans((ctx, builder) =>
+        host.UseOrleansClient(client =>
         {
-            builder.UseLocalhostClustering();
-            builder.AddMemoryGrainStorageAsDefault();
-            builder.AddMemoryGrainStorage("store");
-        });
+            client.UseLocalhostClustering();
+        })
+        .ConfigureLogging(logging => logging.AddConsole())
+        .UseConsoleLifetime();
         return host;
     }
 }

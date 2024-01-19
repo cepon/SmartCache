@@ -1,24 +1,24 @@
 ﻿using SmartCache.Domain.Helpers;
 using SmartCache.Domain.Interfaces;
-using SmartCache.Infrastructure.MicrosoftOrleans.Grains.Interfaces;
+using SmartCache.Orleans.Grains.Interfaces;
 
 namespace SmartCache.Infrastructure.Services;
 public class MicrosoftOrleansService : ICacheService
 {
-    private readonly IGrainFactory _grainFactory;
-    public MicrosoftOrleansService(IGrainFactory grainFactory)
+    private readonly IClusterClient _clusterClient;
+    public MicrosoftOrleansService(IClusterClient clusterClient)
     {
-        _grainFactory = grainFactory;
+        _clusterClient = clusterClient;
     }
     public async Task AddBreachedEmail(string email)
     {
         var emailDomain = EmailHelper.GetEmailDomain(email);
-        await _grainFactory.GetGrain<IDomainGrain>(emailDomain).AddBreachedEmailAsync(email);
+        await _clusterClient.GetGrain<IDomainGrain>(emailDomain).AddBreachedEmailAsync(email);
     }
 
     public async Task<bool> IsEmailBreached(string email)
     {
         var emailDomain = EmailHelper.GetEmailDomain(email);
-        return await _grainFactory.GetGrain<IDomainGrain>(emailDomain).IsEmailBreachedAsync(email);
+        return await _clusterClient.GetGrain<IDomainGrain>(emailDomain).IsEmailBreachedAsync(email);
     }
 }
