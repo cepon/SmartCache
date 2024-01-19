@@ -6,8 +6,10 @@ IHostBuilder builder = Host.CreateDefaultBuilder(args)
     {
         silo.UseLocalhostClustering()
             .ConfigureLogging(logging => logging.AddConsole());
-        silo.AddMemoryGrainStorageAsDefault();
-        silo.AddMemoryGrainStorage("store");
+        silo.AddAzureBlobGrainStorageAsDefault(options =>
+        {
+            options.ConfigureBlobServiceClient("UseDevelopmentStorage=true");
+        });
     })
     .UseConsoleLifetime();
 
