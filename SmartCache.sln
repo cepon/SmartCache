@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCache.Orleans.Silo", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCache.Orleans.Grains", "src\SmartCache.Orleans.Grains\SmartCache.Orleans.Grains.csproj", "{183E2D0F-1D48-4D73-A2C3-F67EFF3F61EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCache.Orleans.Grains.UnitTests", "tests\SmartCache.Orleans.Grains.UnitTests\SmartCache.Orleans.Grains.UnitTests.csproj", "{D032D790-E56E-4061-9344-3CCDE344A8F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{183E2D0F-1D48-4D73-A2C3-F67EFF3F61EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{183E2D0F-1D48-4D73-A2C3-F67EFF3F61EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{183E2D0F-1D48-4D73-A2C3-F67EFF3F61EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D032D790-E56E-4061-9344-3CCDE344A8F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D032D790-E56E-4061-9344-3CCDE344A8F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D032D790-E56E-4061-9344-3CCDE344A8F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D032D790-E56E-4061-9344-3CCDE344A8F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{239FAC12-FB91-4C67-A026-39DBFDA7468F} = {7691CDD9-2979-40DE-BF85-594A6C7EC6EF}
 		{2ED20AAE-F21E-4F8B-BD4B-6658B0BF8753} = {CEC611D2-EFC6-4C05-B16F-51FA36ABC1D0}
 		{183E2D0F-1D48-4D73-A2C3-F67EFF3F61EB} = {CEC611D2-EFC6-4C05-B16F-51FA36ABC1D0}
+		{D032D790-E56E-4061-9344-3CCDE344A8F2} = {7691CDD9-2979-40DE-BF85-594A6C7EC6EF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE4D24BD-6239-436A-9917-F0740E307C34}

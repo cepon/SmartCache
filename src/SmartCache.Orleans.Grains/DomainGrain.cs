@@ -1,7 +1,7 @@
 ﻿using Orleans.Runtime;
 using SmartCache.Orleans.Grains.Interfaces;
 
-namespace SmartCache.Orleans.Silo.Grains;
+namespace SmartCache.Orleans.Grains;
 public class DomainGrain : Grain, IDomainGrain
 {
     private readonly IPersistentState<State> _state;
